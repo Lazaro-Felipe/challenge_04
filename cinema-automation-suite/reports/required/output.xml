@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.13.7 on win32)" generated="20251028 21:50:22.439" rpa="false" schemaversion="4">
+<suite id="s1" name="Required Api Tests" source="c:\Users\lazaro\Downloads\challenge_final\cinema-automation-suite\backend-tests\required_api_tests.robot">
+<test id="s1-t1" name="CT001 - Registro de Usuário" line="9">
+<kw name="Setup API Session" library="custom_keywords" type="SETUP">
+<doc>Cria sessão para testes de API</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>cinema_api</arg>
+<arg>${API_BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20251028 21:50:23.239" level="INFO">Creating Session using : alias=cinema_api, url=http://localhost:5000/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20251028 21:50:23.239" endtime="20251028 21:50:23.239"/>
+</kw>
+<status status="PASS" starttime="20251028 21:50:23.238" endtime="20251028 21:50:23.239"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=Test User</arg>
+<arg>email=testuser@example.com</arg>
+<arg>password=password123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251028 21:50:23.240" level="INFO">${body} = {'name': 'Test User', 'email': 'testuser@example.com', 'password': 'password123'}</msg>
+<status status="PASS" starttime="20251028 21:50:23.240" endtime="20251028 21:50:23.240"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>cinema_api</arg>
+<arg>/auth/register</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20251028 21:50:23.358" level="INFO">POST Request : url=http://localhost:5000/api/v1/auth/register 
+ path_url=/api/v1/auth/register 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '81', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Test User", "email": "testuser@example.com", "password": "password123"}' 
+ </msg>
+<msg timestamp="20251028 21:50:23.358" level="INFO">POST Response : url=http://localhost:5000/api/v1/auth/register 
+ status=201, reason=Created 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '304', 'ETag': 'W/"130-RSSxq6sMRfbei87rI53yNBcd2YQ"', 'Date': 'Wed, 29 Oct 2025 00:50:23 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"690164cf6e98dc22072e4f9c","name":"Test User","email":"testuser@example.com","role":"user","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDE2NGNmNmU5OGRjMjIwNzJlNGY5YyIsImlhdCI6MTc2MTY5OTAyMywiZXhwIjoxNzYxNzg1NDIzfQ.LOkPUGyMJyqA1DbLqSzTyJ3QLWq64P-EsgW9D3U7s_M"}} 
+ </msg>
+<msg timestamp="20251028 21:50:23.358" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20251028 21:50:23.240" endtime="20251028 21:50:23.358"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${response.status_code} in [200, 201, 409]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251028 21:50:23.358" endtime="20251028 21:50:23.359"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${response.json()['success']} or 'already exists' in '${response.json()['message']}'</arg>
+<doc>Fails if the given condition is not true.</doc>
+<msg timestamp="20251028 21:50:23.360" level="FAIL">Resolving variable '${response.json()['message']}' failed: KeyError: 'message'</msg>
+<status status="FAIL" starttime="20251028 21:50:23.359" endtime="20251028 21:50:23.360"/>
+</kw>
+<kw name="Delete All Sessions" library="RequestsLibrary" type="TEARDOWN">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20251028 21:50:23.360" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20251028 21:50:23.360" endtime="20251028 21:50:23.360"/>
+</kw>
+<doc>Teste obrigatório - POST /api/v1/auth/register</doc>
+<tag>auth</tag>
+<tag>obrigatorio</tag>
+<status status="FAIL" starttime="20251028 21:50:23.237" endtime="20251028 21:50:23.360">Resolving variable '${response.json()['message']}' failed: KeyError: 'message'</status>
+</test>
+<test id="s1-t2" name="CT002 - Login de Usuário" line="20">
+<kw name="Setup API Session" library="custom_keywords" type="SETUP">
+<doc>Cria sessão para testes de API</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>cinema_api</arg>
+<arg>${API_BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20251028 21:50:23.362" level="INFO">Creating Session using : alias=cinema_api, url=http://localhost:5000/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20251028 21:50:23.362" endtime="20251028 21:50:23.362"/>
+</kw>
+<status status="PASS" starttime="20251028 21:50:23.361" endtime="20251028 21:50:23.362"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>email=user@example.com</arg>
+<arg>password=password123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251028 21:50:23.362" level="INFO">${body} = {'email': 'user@example.com', 'password': 'password123'}</msg>
+<status status="PASS" starttime="20251028 21:50:23.362" endtime="20251028 21:50:23.362"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>cinema_api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20251028 21:50:23.368" level="INFO">POST Request : url=http://localhost:5000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "user@example.com", "password": "password123"}' 
+ </msg>
+<msg timestamp="20251028 21:50:23.368" level="INFO">POST Response : url=http://localhost:5000/api/v1/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '55', 'ETag': 'W/"37-5uDpJTljPBecOPs/j7OXFdPRcmQ"', 'Date': 'Wed, 29 Oct 2025 00:50:23 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Invalid email or password"} 
+ </msg>
+<msg timestamp="20251028 21:50:23.368" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:5000/api/v1/auth/login</msg>
+<status status="FAIL" starttime="20251028 21:50:23.363" endtime="20251028 21:50:23.371"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.371" endtime="20251028 21:50:23.371"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${response.json()['success']}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.371" endtime="20251028 21:50:23.371"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()}</arg>
+<arg>token</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.371" endtime="20251028 21:50:23.371"/>
+</kw>
+<kw name="Delete All Sessions" library="RequestsLibrary" type="TEARDOWN">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20251028 21:50:23.371" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20251028 21:50:23.371" endtime="20251028 21:50:23.372"/>
+</kw>
+<doc>Teste obrigatório - POST /api/v1/auth/login</doc>
+<tag>auth</tag>
+<tag>obrigatorio</tag>
+<status status="FAIL" starttime="20251028 21:50:23.361" endtime="20251028 21:50:23.372">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:5000/api/v1/auth/login</status>
+</test>
+<test id="s1-t3" name="CT003 - Listar Todos os Filmes" line="31">
+<kw name="Setup API Session" library="custom_keywords" type="SETUP">
+<doc>Cria sessão para testes de API</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>cinema_api</arg>
+<arg>${API_BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20251028 21:50:23.373" level="INFO">Creating Session using : alias=cinema_api, url=http://localhost:5000/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20251028 21:50:23.373" endtime="20251028 21:50:23.373"/>
+</kw>
+<status status="PASS" starttime="20251028 21:50:23.373" endtime="20251028 21:50:23.373"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>cinema_api</arg>
+<arg>/movies</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20251028 21:50:23.380" level="INFO">GET Request : url=http://localhost:5000/api/v1/movies 
+ path_url=/api/v1/movies 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20251028 21:50:23.380" level="INFO">GET Response : url=http://localhost:5000/api/v1/movies 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1075', 'ETag': 'W/"433-/tcPBQsmpphYT39grTLzzpQs85A"', 'Date': 'Wed, 29 Oct 2025 00:50:23 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"count":3,"pagination":{},"data":[{"_id":"69015990bd82d6a15ed802d2","customId":"2","title":"The Avengers","synopsis":"Earth's mightiest heroes must come together to save the world.","director":"Joss Whedon","genres":["Action","Adventure"],"duration":143,"classification":"PG-13","poster":"avengers.jpg","releaseDate":"2012-05-04T00:00:00.000Z","id":"69015990bd82d6a15ed802d2"},{"_id":"69015990bd82d6a15ed802d1","customId":"1","title":"Inception","synopsis":"A thief who enters the dreams of others to steal their secrets.","director":"Christopher Nolan","genres":["Science Fiction","Action"],"duration":148,"classification":"PG-13","poster":"inception.jpg","releaseDate":"2010-07-16T00:00:00.000Z","id":"69015990bd82d6a15ed802d1"},{"_id":"69015990bd82d6a15ed802d3","customId":"3","title":"The Shawshank Redemption","synopsis":"Two imprisoned men bond over a number of years.","director":"Frank Darabont","genres":["Drama"],"duration":142,"classification":"R","poster":"shawshank.jpg","releaseDate":"1994-10-14T00:00:00.000Z","id":"69015990bd82d6a15ed802d3"}]} 
+ </msg>
+<msg timestamp="20251028 21:50:23.380" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20251028 21:50:23.373" endtime="20251028 21:50:23.380"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20251028 21:50:23.381" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20251028 21:50:23.380" endtime="20251028 21:50:23.381"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${response.json()['success']}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251028 21:50:23.381" endtime="20251028 21:50:23.382"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()}</arg>
+<arg>data</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20251028 21:50:23.382" endtime="20251028 21:50:23.382"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>len(${response.json()['data']}) &gt; 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251028 21:50:23.383" endtime="20251028 21:50:23.383"/>
+</kw>
+<kw name="Delete All Sessions" library="RequestsLibrary" type="TEARDOWN">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20251028 21:50:23.384" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20251028 21:50:23.384" endtime="20251028 21:50:23.384"/>
+</kw>
+<doc>Teste obrigatório - GET /api/v1/movies</doc>
+<tag>movies</tag>
+<tag>obrigatorio</tag>
+<status status="PASS" starttime="20251028 21:50:23.372" endtime="20251028 21:50:23.384"/>
+</test>
+<test id="s1-t4" name="CT004 - Obter Filme por ID" line="40">
+<kw name="Setup API Session" library="custom_keywords" type="SETUP">
+<doc>Cria sessão para testes de API</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>cinema_api</arg>
+<arg>${API_BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20251028 21:50:23.385" level="INFO">Creating Session using : alias=cinema_api, url=http://localhost:5000/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20251028 21:50:23.385" endtime="20251028 21:50:23.385"/>
+</kw>
+<status status="PASS" starttime="20251028 21:50:23.384" endtime="20251028 21:50:23.385"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${movies_response}</var>
+<arg>cinema_api</arg>
+<arg>/movies</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20251028 21:50:23.392" level="INFO">GET Request : url=http://localhost:5000/api/v1/movies 
+ path_url=/api/v1/movies 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20251028 21:50:23.392" level="INFO">GET Response : url=http://localhost:5000/api/v1/movies 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1075', 'ETag': 'W/"433-/tcPBQsmpphYT39grTLzzpQs85A"', 'Date': 'Wed, 29 Oct 2025 00:50:23 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"count":3,"pagination":{},"data":[{"_id":"69015990bd82d6a15ed802d2","customId":"2","title":"The Avengers","synopsis":"Earth's mightiest heroes must come together to save the world.","director":"Joss Whedon","genres":["Action","Adventure"],"duration":143,"classification":"PG-13","poster":"avengers.jpg","releaseDate":"2012-05-04T00:00:00.000Z","id":"69015990bd82d6a15ed802d2"},{"_id":"69015990bd82d6a15ed802d1","customId":"1","title":"Inception","synopsis":"A thief who enters the dreams of others to steal their secrets.","director":"Christopher Nolan","genres":["Science Fiction","Action"],"duration":148,"classification":"PG-13","poster":"inception.jpg","releaseDate":"2010-07-16T00:00:00.000Z","id":"69015990bd82d6a15ed802d1"},{"_id":"69015990bd82d6a15ed802d3","customId":"3","title":"The Shawshank Redemption","synopsis":"Two imprisoned men bond over a number of years.","director":"Frank Darabont","genres":["Drama"],"duration":142,"classification":"R","poster":"shawshank.jpg","releaseDate":"1994-10-14T00:00:00.000Z","id":"69015990bd82d6a15ed802d3"}]} 
+ </msg>
+<msg timestamp="20251028 21:50:23.392" level="INFO">${movies_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20251028 21:50:23.385" endtime="20251028 21:50:23.392"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${movie_id}</var>
+<arg>${movies_response.json()['data'][0]['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20251028 21:50:23.393" level="INFO">${movie_id} = 69015990bd82d6a15ed802d2</msg>
+<status status="PASS" starttime="20251028 21:50:23.392" endtime="20251028 21:50:23.393"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>cinema_api</arg>
+<arg>/movies/${movie_id}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20251028 21:50:23.487" level="INFO">GET Request : url=http://localhost:5000/api/v1/movies/69015990bd82d6a15ed802d2 
+ path_url=/api/v1/movies/69015990bd82d6a15ed802d2 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20251028 21:50:23.487" level="INFO">GET Response : url=http://localhost:5000/api/v1/movies/69015990bd82d6a15ed802d2 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '216401', 'ETag': 'W/"34d51-wrvs65VPso3wTTM4xo83oeEXnc0"', 'Date': 'Wed, 29 Oct 2025 00:50:23 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"69015990bd82d6a15ed802d2","customId":"2","title":"The Avengers","synopsis":"Earth's mightiest heroes must come together to save the world.","director":"Joss Whedon","genres":["Action","Adventure"],"duration":143,"classification":"PG-13","poster":"avengers.jpg","releaseDate":"2012-05-04T00:00:00.000Z","createdAt":"2025-10-29T00:02:24.646Z","__v":0,"updatedAt":"2025-10-29T00:02:24.649Z","sessions":[{"_id":"69015990bd82d6a15ed802e1","movie":"69015990bd82d6a15ed802d2","theater":"69015990bd82d6a15ed802d5","datetime":"2025-10-28T15:00:00.000Z","fullPrice":15,"halfPrice":7.5,"seats":[{"row":"A","number":1,"status":"available"},{"row":"A","number":2,"status":"available"},{"row":"A","number":3,"status":"available"},{"row":"A","number":4,"status":"available"},{"row":"A","number":5,"status":"available"},{"row":"A","number":6,"status":"available"},{"row":"A","number":7,"status":"available"},{"row":"A","number":8,"status":"available"},{"row":"A","number":9,"status":"available"},{"row":"A","number":10,"status":"available"},{"row":"A","number":11,"status":"available"},{"row":"A","number":12,"status":"available"},{"row":"A","number":13,"status":"available"},{"row":"A","number":14,"status":"available"},{"row":"A","number":15,"status":"available"},{"row":"B","number":1,"status":"available"},{"row":"B","number":2,"status":"available"},{"row":"B","number":3,"status":"available"},{"row":"B","number":4,"status":"available"},{"row":"B","number":5,"status":"available"},{"row":"B","number":6,"status":"available"},{"row":"B","number":7,"status":"available"},{"row":"B","number":8,"status":"available"},{"row":"B","number":9,"status":"available"},{"row":"B","number":10,"status":"available"},{"row":"B","number":11,"status":"available"},{"row":"B","number":12,"status":"available"},{"row":"B","number":13,"status":"available"},{"row":"B","number":14,"status":"available"},{"row":"B","number":15,"status":"available"},{"row":"C","number":1,"status":"available"},{"row":"C","number":2,"status":"available"},{"row":"C","number":3,"status":"available"},{"row":"C","number":4,"status":"available"},{"row":"C","number":5,"status":"available"},{"row":"C","number":6,"status":"available"},{"row":"C","number":7,"status":"available"},{"row":"C","number":8,"status":"available"},{"row":"C","number":9,"status":"available"},{"row":"C","number":10,"status":"available"},{"row":"C","number":11,"status":"available"},{"row":"C","number":12,"status":"available"},{"row":"C","number":13,"status":"available"},{"row":"C","number":14,"status":"available"},{"row":"C","number":15,"status":"available"},{"row":"D","number":1,"status":"available"},{"row":"D","number":2,"status":"available"},{"row":"D","number":3,"status":"available"},{"row":"D","number":4,"status":"available"},{"row":"D","number":5,"status":"available"},{"row":"D","number":6,"status":"available"},{"row":"D","number":7,"status":"available"},{"row":"D","number":8,"status":"available"},{"row":"D","number":9,"status":"available"},{"row":"D","number":10,"status":"available"},{"row":"D","number":11,"status":"available"},{"row":"D","number":12,"status":"available"},{"row":"D","number":13,"status":"available"},{"row":"D","number":14,"status":"available"},{"row":"D","number":15,"status":"available"},{"row":"E","number":1,"status":"available"},{"row":"E","number":2,"status":"available"},{"row":"E","number":3,"status":"available"},{"row":"E","number":4,"status":"available"},{"row":"E","number":5,"status":"available"},{"row":"E","number":6,"status":"available"},{"row":"E","number":7,"status":"available"},{"row":"E","number":8,"status":"available"},{"row":"E","number":9,"status":"available"},{"row":"E","number":10,"status":"available"},{"row":"E","number":11,"status":"available"},{"row":"E","number":12,"status":"available"},{"row":"E","number":13,"status":"available"},{"row":"E","number":14,"status":"available"},{"row":"E","number":15,"status":"available"},{"row":"F","number":1,"status":"available"},{"row":"F","number":2,"status":"available"},{"row":"F","number":3,"status":"available"},{"row":"F","number":4,"status":"available"},{"row":"F","number":5,"status":"available"},{"row":"F","number":6,"status":"available"},{"row":"F","number":7,"status":"available"},{"row":"F","number":8,"status":"available"},{"row":"F","number":9,"status":"available"},{"row":"F","number":10,"status":"available"},{"row":"F","number":11,"status":"available"},{"row":"F","number":12,"status":"available"},{"row":"F","number":13,"status":"available"},{"row":"F","number":14,"status":"available"},{"row":"F","number":15,"status":"available"},{"row":"G","number":1,"status":"available"},{"row":"G","number":2,"status":"available"},{"row":"G","number":3,"status":"available"},{"row":"G","number":4,"status":"available"},{"row":"G","number":5,"status":"available"},{"row":"G","number":6,"status":"available"},{"row":"G","number":7,"status":"available"},{"row":"G","number":8,"status":"available"},{"row":"G","number":9,"status":"available"},{"row":"G","number":10,"status":"available"},{"row":"G","number":11,"status":"available"},{"row":"G","number":12,"status":"available"},{"row":"G","number":13,"status":"available"},{"row":"G","number":14,"status":"available"},{"row":"G","number":15,"status":"available"},{"row":"H","number":1,"status":"available"},{"row":"H","number":2,"status":"available"},{"row":"H","number":3,"status":"available"},{"row":"H","number":4,"status":"available"},{"row":"H","number":5,"status":"available"},{"row":"H","number":6,"status":"available"},{"row":"H","number":7,"status":"available"},{"row":"H","number":8,"status":"available"},{"row":"H","number":9,"status":"available"},{"row":"H","number":10,"status":"available"},{"row":"H","number":11,"status":"available"},{"row":"H","number":12,"status":"available"},{"row":"H","number":13,"status":"available"},{"row":"H","number":14,"status":"available"},{"row":"H","number":15,"status":"available"}],"createdAt":"2025-10-29T00:02:24.740Z","__v":0,"updatedAt":"2025-10-29T00:02:25.464Z","id":"69015990bd82d6a15ed802e1"},{"_id":"69015990bd82d6a15ed802e2","movie":"69015990bd82d6a15ed802d2","theater":"69015990bd82d6a15ed802d5","datetime":"2025-10-28T19:00:00.000Z","fullPrice":15,"halfPrice":7.5,"seats":[{"row":"A","number":1,"status":"available"},{"row":"A","number":2,"status":"available"},{"row":"A","number":3,"status":"available"},{"row":"A","number":4,"status":"available"},{"row":"A","number":5,"status":"available"},{"row":"A","number":6,"status":"available"},{"row":"A","number":7,"status":"available"},{"row":"A","number":8,"status":"available"},{"row":"A","number":9,"status":"available"},{"row":"A","number":10,"status":"available"},{"row":"A","number":11,"status":"available"},{"row":"A","number":12,"status":"available"},{"row":"A","number":13,"status":"available"},{"row":"A","number":14,"status":"available"},{"row":"A","number":15,"status":"available"},{"row":"B","number":1,"status":"available"},{"row":"B","number":2,"status":"available"},{"row":"B","number":3,"status":"available"},{"row":"B","number":4,"status":"available"},{"row":"B","number":5,"status":"available"},{"row":"B","number":6,"status":"available"},{"row":"B","number":7,"status":"available"},{"row":"B","number":8,"status":"available"},{"row":"B","number":9,"status":"available"},{"row":"B","number":10,"status":"available"},{"row":"B","number":11,"status":"available"},{"row":"B","number":12,"status":"available"},{"row":"B","number":13,"status":"available"},{"row":"B","number":14,"status":"available"},{"row":"B","number":15,"status":"available"},{"row":"C","number":1,"status":"available"},{"row":"C","number":2,"status":"available"},{"row":"C","number":3,"status":"available"},{"row":"C","number":4,"status":"available"},{"row":"C","number":5,"status":"available"},{"row":"C","number":6,"status":"available"},{"row":"C","number":7,"status":"available"},{"row":"C","number":8,"status":"available"},{"row":"C","number":9,"status":"available"},{"row":"C","number":10,"status":"available"},{"row":"C","number":11,"status":"available"},{"row":"C","number":12,"status":"available"},{"row":"C","number":13,"status":"available"},{"row":"C","number":14,"status":"available"},{"row":"C","number":15,"status":"available"},{"row":"D","number":1,"status":"available"},{"row":"D","number":2,"status":"available"},{"row":"D","number":3,"status":"available"},{"row":"D","number":4,"status":"available"},{"row":"D","number":5,"status":"available"},{"row":"D","number":6,"status":"available"},{"row":"D","number":7,"status":"available"},{"row":"D","number":8,"status":"available"},{"row":"D","number":9,"status":"available"},{"row":"D","number":10,"status":"available"},{"row":"D","number":11,"status":"available"},{"row":"D","number":12,"status":"available"},{"row":"D","number":13,"status":"available"},{"row":"D","number":14,"status":"available"},{"row":"D","number":15,"status":"available"},{"row":"E","number":1,"status":"available"},{"row":"E","number":2,"status":"available"},{"row":"E","number":3,"status":"available"},{"row":"E","number":4,"status":"available"},{"row":"E","number":5,"status":"available"},{"row":"E","number":6,"status":"available"},{"row":"E","number":7,"status":"available"},{"row":"E","number":8,"status":"available"},{"row":"E","number":9,"status":"available"},{"row":"E","number":10,"status":"available"},{"row":"E","number":11,"status":"available"},{"row":"E","number":12,"status":"available"},{"row":"E","number":13,"status":"available"},{"row":"E","number":14,"status":"available"},{"row":"E","number":15,"status":"available"},{"row":"F","number":1,"status":"available"},{"row":"F","number":2,"status":"available"},{"row":"F","number":3,"status":"available"},{"row":"F","number":4,"status":"available"},{"row":"F","number":5,"status":"available"},{"row":"F","number":6,"status":"available"},{"row":"F","number":7,"status":"available"},{"row":"F","number":8,"status":"available"},{"row":"F","number":9,"status":"available"},{"row":"F","number":10,"sta... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg timestamp="20251028 21:50:23.487" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20251028 21:50:23.393" endtime="20251028 21:50:23.487"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20251028 21:50:23.488" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20251028 21:50:23.488" endtime="20251028 21:50:23.488"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${response.json()['success']}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251028 21:50:23.488" endtime="20251028 21:50:23.495"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response.json()['data']['_id']}</arg>
+<arg>${movie_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20251028 21:50:23.495" endtime="20251028 21:50:23.500"/>
+</kw>
+<kw name="Delete All Sessions" library="RequestsLibrary" type="TEARDOWN">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20251028 21:50:23.500" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20251028 21:50:23.500" endtime="20251028 21:50:23.500"/>
+</kw>
+<doc>Teste obrigatório - GET /api/v1/movies/:id</doc>
+<tag>movies</tag>
+<tag>obrigatorio</tag>
+<status status="PASS" starttime="20251028 21:50:23.384" endtime="20251028 21:50:23.500"/>
+</test>
+<test id="s1-t5" name="CT005 - Obter Usuário Atual (Autenticado)" line="53">
+<kw name="Setup API Session" library="custom_keywords" type="SETUP">
+<doc>Cria sessão para testes de API</doc>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>cinema_api</arg>
+<arg>${API_BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20251028 21:50:23.502" level="INFO">Creating Session using : alias=cinema_api, url=http://localhost:5000/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20251028 21:50:23.502" endtime="20251028 21:50:23.502"/>
+</kw>
+<status status="PASS" starttime="20251028 21:50:23.502" endtime="20251028 21:50:23.502"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${login_body}</var>
+<arg>email=user@example.com</arg>
+<arg>password=password123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251028 21:50:23.503" level="INFO">${login_body} = {'email': 'user@example.com', 'password': 'password123'}</msg>
+<status status="PASS" starttime="20251028 21:50:23.503" endtime="20251028 21:50:23.503"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${login_response}</var>
+<arg>cinema_api</arg>
+<arg>/auth/login</arg>
+<arg>json=${login_body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20251028 21:50:23.509" level="INFO">POST Request : url=http://localhost:5000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "user@example.com", "password": "password123"}' 
+ </msg>
+<msg timestamp="20251028 21:50:23.509" level="INFO">POST Response : url=http://localhost:5000/api/v1/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '55', 'ETag': 'W/"37-5uDpJTljPBecOPs/j7OXFdPRcmQ"', 'Date': 'Wed, 29 Oct 2025 00:50:23 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Invalid email or password"} 
+ </msg>
+<msg timestamp="20251028 21:50:23.509" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:5000/api/v1/auth/login</msg>
+<status status="FAIL" starttime="20251028 21:50:23.503" endtime="20251028 21:50:23.511"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${login_response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.511" endtime="20251028 21:50:23.511"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.511" endtime="20251028 21:50:23.511"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>cinema_api</arg>
+<arg>/auth/me</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.511" endtime="20251028 21:50:23.511"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.511" endtime="20251028 21:50:23.511"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${response.json()['success']}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.511" endtime="20251028 21:50:23.511"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()['data']}</arg>
+<arg>email</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" starttime="20251028 21:50:23.511" endtime="20251028 21:50:23.511"/>
+</kw>
+<kw name="Delete All Sessions" library="RequestsLibrary" type="TEARDOWN">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20251028 21:50:23.512" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20251028 21:50:23.512" endtime="20251028 21:50:23.512"/>
+</kw>
+<doc>Teste obrigatório - GET /api/v1/auth/me</doc>
+<tag>auth</tag>
+<tag>obrigatorio</tag>
+<status status="FAIL" starttime="20251028 21:50:23.501" endtime="20251028 21:50:23.512">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:5000/api/v1/auth/login</status>
+</test>
+<status status="FAIL" starttime="20251028 21:50:22.440" endtime="20251028 21:50:23.512"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="3" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="3" skip="0">auth</stat>
+<stat pass="2" fail="0" skip="0">movies</stat>
+<stat pass="2" fail="3" skip="0">obrigatorio</stat>
+</tag>
+<suite>
+<stat pass="2" fail="3" skip="0" id="s1" name="Required Api Tests">Required Api Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

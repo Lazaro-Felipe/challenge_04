@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.13.7 on win32)" generated="20251028 21:53:11.533" rpa="false" schemaversion="4">
+<suite id="s1" name="Required Ui Tests" source="c:\Users\lazaro\Downloads\challenge_final\cinema-automation-suite\frontend-tests\required_ui_tests.robot">
+<test id="s1-t1" name="CT001 - Verificar Aplicação Carrega" line="8">
+<kw name="Open Browser" library="SeleniumLibrary" type="SETUP">
+<arg>${FRONTEND_URL}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20251028 21:53:11.827" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3002'.</msg>
+<status status="PASS" starttime="20251028 21:53:11.826" endtime="20251028 21:53:19.626"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>xpath=//body</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20251028 21:53:19.627" endtime="20251028 21:53:20.390"/>
+</kw>
+<kw name="Page Should Not Contain" library="SeleniumLibrary">
+<arg>404</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<msg timestamp="20251028 21:53:20.415" level="INFO">Current page does not contain text '404'.</msg>
+<status status="PASS" starttime="20251028 21:53:20.390" endtime="20251028 21:53:20.415"/>
+</kw>
+<kw name="Page Should Not Contain" library="SeleniumLibrary">
+<arg>Error</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<msg timestamp="20251028 21:53:20.781" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-9.png"&gt;&lt;img src="selenium-screenshot-9.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20251028 21:53:20.781" level="FAIL">Page should not have contained text 'Error'.</msg>
+<status status="FAIL" starttime="20251028 21:53:20.415" endtime="20251028 21:53:20.784"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20251028 21:53:20.784" endtime="20251028 21:53:23.297"/>
+</kw>
+<doc>Teste obrigatório - Verificar se a aplicação carrega</doc>
+<tag>obrigatorio</tag>
+<tag>smoke</tag>
+<status status="FAIL" starttime="20251028 21:53:11.825" endtime="20251028 21:53:23.297">Page should not have contained text 'Error'.</status>
+</test>
+<test id="s1-t2" name="CT002 - Verificar Elementos de Input" line="15">
+<kw name="Open Browser" library="SeleniumLibrary" type="SETUP">
+<arg>${FRONTEND_URL}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20251028 21:53:23.299" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3002'.</msg>
+<status status="PASS" starttime="20251028 21:53:23.298" endtime="20251028 21:53:31.394"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>xpath=//input</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<msg timestamp="20251028 21:53:41.547" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-10.png"&gt;&lt;img src="selenium-screenshot-10.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20251028 21:53:41.547" level="FAIL">Element 'xpath=//input' did not appear in 10 seconds.</msg>
+<status status="FAIL" starttime="20251028 21:53:31.394" endtime="20251028 21:53:41.549"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>xpath=//input</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="NOT RUN" starttime="20251028 21:53:41.549" endtime="20251028 21:53:41.549"/>
+</kw>
+<kw name="Page Should Contain Element" library="SeleniumLibrary">
+<arg>xpath=//button</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="NOT RUN" starttime="20251028 21:53:41.549" endtime="20251028 21:53:41.549"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20251028 21:53:41.549" endtime="20251028 21:53:43.797"/>
+</kw>
+<doc>Teste obrigatório - Verificar se existem campos de input</doc>
+<tag>obrigatorio</tag>
+<tag>ui</tag>
+<status status="FAIL" starttime="20251028 21:53:23.298" endtime="20251028 21:53:43.798">Element 'xpath=//input' did not appear in 10 seconds.</status>
+</test>
+<test id="s1-t3" name="CT003 - Verificar Interação Básica" line="22">
+<kw name="Open Browser" library="SeleniumLibrary" type="SETUP">
+<arg>${FRONTEND_URL}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20251028 21:53:43.800" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:3002'.</msg>
+<status status="PASS" starttime="20251028 21:53:43.799" endtime="20251028 21:53:51.098"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>xpath=//input</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<msg timestamp="20251028 21:54:01.404" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-11.png"&gt;&lt;img src="selenium-screenshot-11.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20251028 21:54:01.404" level="FAIL">Element 'xpath=//input' did not appear in 10 seconds.</msg>
+<status status="FAIL" starttime="20251028 21:53:51.099" endtime="20251028 21:54:01.405"/>
+</kw>
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>${inputs}</var>
+<arg>xpath=//input</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="NOT RUN" starttime="20251028 21:54:01.405" endtime="20251028 21:54:01.406"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>len(${inputs}) &gt;= 2</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" starttime="20251028 21:54:01.406" endtime="20251028 21:54:01.406"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath=//input[1]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20251028 21:54:01.406" endtime="20251028 21:54:01.406"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>xpath=//input[1]</arg>
+<arg>test@example.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20251028 21:54:01.406" endtime="20251028 21:54:01.406"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20251028 21:54:01.406" endtime="20251028 21:54:03.611"/>
+</kw>
+<doc>Teste obrigatório - Verificar se é possível interagir com elementos</doc>
+<tag>interaction</tag>
+<tag>obrigatorio</tag>
+<status status="FAIL" starttime="20251028 21:53:43.798" endtime="20251028 21:54:03.611">Element 'xpath=//input' did not appear in 10 seconds.</status>
+</test>
+<status status="FAIL" starttime="20251028 21:53:11.535" endtime="20251028 21:54:03.612"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="3" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">interaction</stat>
+<stat pass="0" fail="3" skip="0">obrigatorio</stat>
+<stat pass="0" fail="1" skip="0">smoke</stat>
+<stat pass="0" fail="1" skip="0">ui</stat>
+</tag>
+<suite>
+<stat pass="0" fail="3" skip="0" id="s1" name="Required Ui Tests">Required Ui Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
